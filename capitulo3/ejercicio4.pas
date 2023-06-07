@@ -21,7 +21,7 @@ var
     i2: integer;
     contadorLineas: integer;
 begin
-    for i:= 1 to 2 do begin
+    for i:= 1 to 9300 do begin
         write('ingrese el codigo de cliente: ');
         read(cliente[i].codigoCliente);
         write('ingrese la cantidad de lineas que posee: ');
@@ -63,3 +63,5 @@ begin
     leerClientes;
     cantidadTotalMinutosYMb;
 end.
+
+// PREGUNTARLE A MIS SI ESTA BIEN LLAMAR EL PROCEDIMIENTO DESPUES O ADENTRO DE LA FUNCION;
