@@ -31,30 +31,33 @@ begin
 end;
 procedure relacionDocenteAlumno;
 var
-    cociente: real;
-    alumnosCantidadSuperior: integer;
+    escuelasSuperiores: integer;
+    cocienteRelacion: real;
+    i: integer;
     mejorCUE: informacionDelColegio;
     mejorCUE2: informacionDelColegio;
-    mejorNombre: informacionDelColegio;
-    mejorNombre2: informacionDelColegio;
-    i: integer;
+    nombreColegio: informacionDelColegio;
+    nombreColegio2: informacionDelColegio;
 begin
+    escuelasSuperiores:= 0;
     for i:= 1 to 2400 do begin
-        // cantidad superior de alumnos sugerida por UNESCO
-        if (colegio[i].cantidadAlumnos / colegio[i].cantidadDocentes > 23435) then alumnosCantidadSuperior:= alumnosCantidadSuperior + 1;
+        // cociente de relacion de alumnos por docente
+        cocienteRelacion:= colegio[i].cantidadAlumnos / colegio[i].cantidadDocentes;
+        // Cantidad de escuelas de La Plata con una relación de alumnos por docente superior a la sugerida por UNESCO
+        if ((colegio[i].localidad = 'la plata') and (colegio[i].cantidadAlumnos / colegio[i].cantidadDocentes > 23.435)) then begin
+            escuelasSuperiores:= escuelasSuperiores + 1;
+        end;
 
-        // obtener las dos escuelas con mejor relacion de alumno por docente
-        if (colegio[i].cantidadAlumnos / colegio[i].cantidadDocentes < 23435) then begin
-            mejorCUE:= colegio[i]
-            mejorNombre:= colegio[i]
+        // CUE y nombre de las dos escuelas con mejor relación entre docentes y alumnos
+        if (colegio[i].cantidadAlumnos / colegio[i].cantidadDocentes < 23.435) then begin
+            mejorCUE:= colegio[i];
+            nombreColegio:= colegio[i];
+        end;
+        // obtener el segundo colegio
+        if ((colegio[i].cantidadAlumnos / colegio[i].cantidadDocentes < 23.435) and (colegio[i].nombreEstablecimiento <> nombreColegio.nombreEstablecimiento)) then begin
+            mejorCUE2:= colegio[i];
+            nombreColegio2:= colegio[i];
         end
-
-        if ()
-
-        //obtener relacion docente-alumno
-        cociente:= colegio[i].cantidadAlumnos / colegio[i].cantidadDocentes;
-        writeln('la relacion docente-alumno es de: ', cociente:0:2);
-        writeln('la cantidad de escuelas con relacion de alumno por docente superior es de: ', alumnosCantidadSuperior);
     end;
 end;
 begin
