@@ -1,47 +1,75 @@
 program ejercicio5;
 type
-    modeloAuto = record
+    auto = record
         marca: string;
         modelo: string;
-        precio: string;
+        precio: integer;
     end;
-    listaModeloAuto = array of modeloAuto;
+    listaAutos = array of auto;
 var
-    precioPromedioMarca: integer;
-    sumaPrecios: integer;
+    autos: listaAutos;
+procedure leerAutos;
+var
+    marca: string;
     i: integer;
-    contadorFor: integer;
-    modelosAutos: listaModeloAuto;
-    marcaCara: modeloAuto;
-    modeloCaro: modeloAuto;
-    precioMax: integer;
+    limiteArray: integer;
+    verificarZZZ: string; // esto es para verificar si la marca es igual a ZZZ
 begin
-    precioMax: 0;
-    for i:= 1 to contadorFor do begin
+    marca:= '';
+    i:= 1;
+    verificarZZZ:= '';
+    limiteArray:= 1;
+    while i <= limiteArray do begin
+        SetLength(autos, limiteArray);
+
+        limiteArray:= limiteArray + 1;
+
         write('ingrese la marca del auto: ');
-        readln(modelosAutos[i].marca)
+        readln(verificarZZZ);
 
-        if (marca = 'ZZZ') then Break;
+        if (verificarZZZ = 'ZZZ') then Break;
+        
+        if (verificarZZZ <> 'ZZZ') then autos[i].marca:= verificarZZZ; // esto es para arreglar el error de que si ingresabas ZZZ se guardaba
 
-        write('ingrese el modelo del auto: ');
-        readln(modelosAutos[i].modelo)
-        write('ingrese el precio del auto: ');
-        readln(modelosAutos[i].precio);
+        // logica de "una lista por marca"
+        if (autos[i].marca <> marca) then begin // si la marca es distinta guardarla en la variable
+            marca:= autos[i].marca;
+        end;
 
-        contadorFor:= contadorFor + 1;
+        if (autos[i].marca = marca) then begin // verificar que la marca siga siendo igual y no cambio
+                write('ingrese el modelo del auto: ');
+                readln(autos[i].modelo);
 
-        SetLength(modelosAutos, contadorFor);
-
-        // precio promedio por marca
-        sumaPrecios:= sumaPrecios + modelosAutos[i].precio;
-        precioPromedioMarca:= sumaPrecios div length(sumaPrecios);
-
-        // Marca y modelo del auto más caro
-        if (modelosAutos[i].precio > precioMax) then begin
-            marcaCara:= modelosAutos[i];
-            modeloCaro:= modeloAutos[i];
-        end
+                write('ingrese el precio del auto: ');
+                readln(autos[i].precio);
+                writeln('-------------------------------') // separador
+        end;
     end;
+end;
+procedure precioPromedioMarca;
+var
+    marca: string;
+    // promedio: real;
+    i: integer;
+    sumaPrecios: integer;
+begin
+    sumaPrecios:= 0;
+    marca:= '';
+    for i:= 1 to length(autos) do begin
+        if (autos[i].marca <> marca) then begin // verificar si es distinto a la marca (siempre va a ser distinto a lo primero)
+            marca:= autos[i].marca;
+        end;
+
+        if (autos[i].marca = marca) then begin // verificar que la marca no cambio y sea igual
+            // logica del promedio
+            sumaPrecios:= sumaPrecios + autos[i].precio;
+        end;
+    end;
+    writeln('la suma de todos los precios es de: ', sumaPrecios);
+end;
+begin
+    leerAutos;
+    precioPromedioMarca;
 end.
 
-// ME TRABE EN LA PARTE DONDE TENGO QUE CREAR UNA LISTA POR CADA MARCA HAY QUE HACERLO Y TERMINO EL EJERCICIO
+// MISMO ERROR, LA SUMA SIEMPRE ES 0 FALTA ARREGLARLO
